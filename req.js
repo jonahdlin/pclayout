@@ -3,6 +3,13 @@ var express = require('express');
 var app = express();
 var jwt = require('express-jwt');
 var qs = require('querystring');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -24,7 +31,7 @@ app.get('/layout', function (req, res) {
 });
 
 app.post('/layout', function (req, res) {
-  res.json('POST request received.');
+  res.json(req.body);
 });
 
 // Launch API Server on port 28015.

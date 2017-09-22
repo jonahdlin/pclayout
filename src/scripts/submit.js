@@ -1,6 +1,12 @@
 var cytoscape = require("cytoscape");
 var $ = require('jquery');
 
+var sprops = {
+  ip: "potato",
+  port: "2001",
+  api: "/layout"
+}
+
 function l(message) {console.log(message);}
 
 /*
@@ -36,14 +42,14 @@ export function submitNewLayout(graph, graph_uri) {
     password: "admin"
   }
   l(layout_json);
-  //upload(layout_json);
+  upload(layout_json);
 }
 
 function upload(layout) {
   l(layout);
   $.ajax({
     type: "POST",
-    url: "http://192.168.90.191:28015/layout",
+    url: "http://"+sprops.ip+":"+sprops.port+sprops.api,
     crossDomain: true,
     data: layout,
     dataType: "json",
