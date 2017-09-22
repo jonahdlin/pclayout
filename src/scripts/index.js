@@ -205,9 +205,6 @@ class URIBox extends React.Component {
           className='layout_submit_button center linear_trans no_select'
           onClick={() => this.props.submitNewLayout()}
         >Submit Layout</div>
-        <div className='layout_submit_ind linear_trans no_select'>
-          :O
-        </div>
       </div>
     );
   }
