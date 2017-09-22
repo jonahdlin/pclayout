@@ -31,16 +31,19 @@ export function submitNewLayout(graph, graph_uri) {
   }
   var layout_json = {
     uri: graph_uri,
-    positions: pos_arr
+    layout: pos_arr,
+    username: "admin",
+    password: "admin"
   }
-  upload(layout_json);
+  l(layout_json);
+  //upload(layout_json);
 }
 
 function upload(layout) {
   l(layout);
   $.ajax({
     type: "POST",
-    url: "http://localhost:28015/layout",
+    url: "http://192.168.90.191:28015/layout",
     crossDomain: true,
     data: layout,
     dataType: "json",

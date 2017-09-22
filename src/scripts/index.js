@@ -201,7 +201,7 @@ class URIBox extends React.Component {
         >Go</div>
         <div
           className='layout_submit_button center linear_trans no_select'
-          onClick={() => this.submitNewLayout()}
+          onClick={() => this.props.submitNewLayout()}
         >Submit Layout</div>
       </div>
     );
@@ -240,15 +240,15 @@ class Sidebar extends React.Component {
   handleEdgeChangeComplete(color) {
     this.props.updateGraphProps("edge_color", color.hex);
   }
-  
+
   render() {
-    var layout_buttons = this.props.layout_options.map(function(layoutName) {
+    const layout_buttons = this.props.layout_options.map((layoutName) => {
       return (
         <div
           key={layoutName}
           className='layout_button linear_trans no_select center'
           onClick={() => this.props.updateGraphProps("layout", layoutName.toLowerCase())}
-        >layoutName</div>
+        >{layoutName}</div>
       );
     });
     
@@ -263,8 +263,8 @@ class Sidebar extends React.Component {
         </div>
         <div className='extras_panel'>
           <div className='tab_select'>
-            <div className='sidebar_tab center linear_trans no_select'></div>
-            <div className='customization_tab center linear_trans no_select'></div>
+            <div className='sidebar_tab center linear_trans no_select'>Node Viewer</div>
+            <div className='customization_tab center linear_trans no_select'>Customization</div>
           </div>
           <div className='node_viewer'>
             <div className='sidebar_graph'></div>
