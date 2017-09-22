@@ -166,13 +166,13 @@ Header and input box
   width: 10%;
   border: 3px solid #303030;
   border-radius: 3px;
-  background-color: #78D1FA;
+  background-color: #61D1FD;
   margin-left: 20px;
 }
 
 .layout_submit_button:hover {
   border: 2px outset #303030;
-  background-color: #61ADCE;
+  background-color: #31B2E0;
   cursor: pointer;
 }
 

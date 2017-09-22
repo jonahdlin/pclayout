@@ -70,8 +70,8 @@ export function parseAndAddData(raw, container, graph_props) {
   var raw_array = raw.replace(/\n/ig, "\t").split("\t");
 
   // Tiny bit of input validation. Usually used to catch any weird data sent that
-  //   that is all one long random string with no spaces. This occurs when pathway
-  //   commons sends data for a garbage URI
+  // that is all one long random string with no spaces. This occurs when pathway
+  // commons sends data for a garbage URI
   if (raw_array.length % 3 !== 0) {
     alert(props.error.incorrect_data);
     return;
@@ -98,8 +98,8 @@ export function parseAndAddData(raw, container, graph_props) {
       edges.push(edge_id);
     } else {
       // As of now, all edges are printed, though some may be hidden completely
-      //   underneath another one, so this code should not ever log anything
-      //   to the console.
+      // underneath another one, so this code should not ever log anything
+      // to the console.
       console.log("Did not print edge '"+edge_id+"'");
     }
   }
@@ -111,7 +111,7 @@ export function parseAndAddData(raw, container, graph_props) {
 }
 
 // Auxiliary function that adds a node with id "name" to the graph g only if
-//   it is not already in the array "arr"
+// it is not already in the array "arr"
 function addIfNew(g, arr, name) {
   if (arr.indexOf(name) === -1) {
     arr.push(name);

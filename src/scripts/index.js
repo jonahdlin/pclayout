@@ -17,12 +17,12 @@ window.addEventListener("DOMContentLoaded", function() {
 }); 
 
 // Page
-//   - Generate Page content (header, graph, sidebar, everything)
-//   - Initialize all properties of the sidebar (done in another file with JQuery)
-//   - Creates the initial graph with the initial uri in its state
-//   - Maintain the graph properties (visual characteristics) and the graph object
-//   - Can update the graph properties and re-render the graph, and passes that function
-//     down to its children (the re-rendering is complete, GET included, I should change that)
+// - Generate Page content (header, graph, sidebar, everything)
+// - Initialize all properties of the sidebar (done in another file with JQuery)
+// - Creates the initial graph with the initial uri in its state
+// - Maintain the graph properties (visual characteristics) and the graph object
+// - Can update the graph properties and re-render the graph, and passes that function
+//   down to its children (the re-rendering is complete, GET included, I should change that)
 class Page extends React.Component {
   constructor() {
     super();
@@ -60,12 +60,12 @@ class Page extends React.Component {
   }
   createGraph(input) {
     // What renderGraph returns is a Promise, since the AJAX call has yet to
-    //   finish when assignment should happen here. If we just returned a graph
-    //   object, it would be undefined, since the assignment occurs right away,
-    //   before AJAX can load the data (and thus doesn't return anything).
-    //   To avoid this, a Promise is returned that must be resolved here. To get
-    //   the error handling out of here for simplicity, it is also part of
-    //   render.js.
+    // finish when assignment should happen here. If we just returned a graph
+    // object, it would be undefined, since the assignment occurs right away,
+    // before AJAX can load the data (and thus doesn't return anything).
+    // To avoid this, a Promise is returned that must be resolved here. To get
+    // the error handling out of here for simplicity, it is also part of
+    // render.js.
     var wait_for_load = render.renderGraph(input, document.getElementsByClassName("graph_container")[0], this.state.graph.g_props);
     wait_for_load.then(
       (result) => {
@@ -128,9 +128,9 @@ class Page extends React.Component {
 }
 
 // Header
-//   - Creates the top of the page content
-//   - Mainly serves as a container so that the URI box class doesn't have to worry about
-//     setting up any other visual content (like the page title)
+// - Creates the top of the page content
+// - Mainly serves as a container so that the URI box class doesn't have to worry about
+//   setting up any other visual content (like the page title)
 class Header extends React.Component {
   render() {
     return (
@@ -148,10 +148,10 @@ class Header extends React.Component {
 }
 
 // URIBox
-//   - Creates the URI input box and can send off whatever is entered back up to the Page
-//     if enter is pressed or if the Go button is pressed
-//   - Does not do any input validation whatsoever
-//   - Has fancy resizing if the page is shrinked :)
+// - Creates the URI input box and can send off whatever is entered back up to the Page
+//   if enter is pressed or if the Go button is pressed
+// - Does not do any input validation whatsoever
+// - Has fancy resizing if the page is shrinked :)
 class URIBox extends React.Component {
   constructor() {
     super();
@@ -166,7 +166,9 @@ class URIBox extends React.Component {
     this.setState({value: this.props.value});
     this.updateDynamic();
   }
-  componentDidMount() {window.addEventListener("resize", this.updateDynamic);}
+  componentDidMount() {
+    window.addEventListener("resize", this.updateDynamic);
+  }
   componentWillUnmount() {window.removeEventListener("resize", this.updateDynamic);}
 
   updateDynamic() {
@@ -209,8 +211,8 @@ class URIBox extends React.Component {
 }
 
 // Graph
-//   - Generates the div for the graph and sends up the cue for Page to load the initial
-//     graph. That should only happen once, once the Graph class has rendered
+// - Generates the div for the graph and sends up the cue for Page to load the initial
+//   graph. That should only happen once, once the Graph class has rendered
 class Graph extends React.Component {
   componentDidMount() {
     //l("Mounted graph container component. Div for graph is: ");
@@ -228,10 +230,10 @@ class Graph extends React.Component {
 }
 
 // Sidebar
-//   - Creates the sidebar (with a mess of HTML, most of which I copied and pasted from
-//     my non-React version of this app)
-//   - Makes changes to graph properties and sends them up to Page for the graph to re-render
-//   - I should split the two menus into two classes I think
+// - Creates the sidebar (with a mess of HTML, most of which I copied and pasted from
+//   my non-React version of this app)
+// - Makes changes to graph properties and sends them up to Page for the graph to re-render
+// - I should split the two menus into two classes I think
 class Sidebar extends React.Component {
   handleNodeChangeComplete(color) {
     this.props.updateGraphProps("node_color", color.hex);
