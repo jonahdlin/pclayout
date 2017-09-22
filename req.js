@@ -30,11 +30,11 @@ app.use(function (req, res, next) {
 });
 
 // Layout API 
-app.get('/layout', function (req, res) {
+app.get('/retrieveLayout', function (req, res) {
   res.json('GET request received.');
 });
 
-app.post('/layout', function (req, res) {
+app.post('/sendLayout', function (req, res) {
   console.log(req.body.uri);
   accessDB.save(req.body, function(){
     res.json('I did things?');
