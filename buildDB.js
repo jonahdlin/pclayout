@@ -9,6 +9,7 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
     createTables();
 })
 
+
 function createTables(){
     r.dbCreate('layouts').run(connection, function(err,callback){
         if (err) throw err;

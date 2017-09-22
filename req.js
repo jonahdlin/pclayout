@@ -1,15 +1,19 @@
 // Get dependencies
+
+var accessDB = require('./saveToDB.js');
 var express = require('express');
 var app = express();
 var jwt = require('express-jwt');
 var qs = require('querystring');
 var bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(bodyParser.json());
+
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -31,7 +35,10 @@ app.get('/layout', function (req, res) {
 });
 
 app.post('/layout', function (req, res) {
-  res.json(req.body);
+  console.log(req.body.uri);
+  accessDB.save(req.body, function(){
+    res.json('I did things?');
+  });
 });
 
 // Launch API Server on port 28015.
