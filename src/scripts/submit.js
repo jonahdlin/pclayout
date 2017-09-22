@@ -6,7 +6,7 @@ function l(message) {console.log(message);}
 var sprops = {
   ip: "potato",
   port: "2001",
-  api: "/layout"
+  send_api: "/sendlayout"
 }
 
 /*
@@ -79,18 +79,18 @@ export function submitNewLayout(graph, graph_uri) {
   }
   var layout_json = {
     uri: graph_uri,
-    layout: pos_arr,
+    layout: JSON.stringify(pos_arr),
     username: "admin",
     password: "admin"
   }
-  l(pos_arr);
-  //upload(layout_json);
+
+  upload(layout_json);
 }
 
 function upload(layout) {
   $.ajax({
     type: "POST",
-    url: "http://"+sprops.ip+":"+sprops.port+sprops.api,
+    url: "http://"+sprops.ip+":"+sprops.port+sprops.send_api,
     crossDomain: true,
     data: layout,
     dataType: "json",
@@ -101,7 +101,7 @@ function upload(layout) {
       l("-------------------------------------");
     },
     error: (jqXHR, exception) => {
-      l("Upload failure :(\n"+jqXHR+"\n"+exception);
+      l("Upload failure :(");
     }
   });
 }
