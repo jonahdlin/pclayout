@@ -36,7 +36,7 @@ export function cytoInit(container, graph_props) {
       var nodes = edges.connectedNodes().filter('[id != "'+e.target.id+'"]');
 
       // Create sidebar graph, which will display the node clicked on,
-      //   surrounded by the nodes and edges connected to it
+      // surrounded by the nodes and edges connected to it
       var sidebar = cytoscape({
         container: $(".sidebar_graph")[0],
         style: [
@@ -63,23 +63,23 @@ export function cytoInit(container, graph_props) {
       });
 
       // This is done to be able to specify the styling of the clicked node,
-      //   but I'm pretty sure you shouldn't specify styles like this. I don't
-      //   know the proper way
+      // but I'm pretty sure you shouldn't specify styles like this. I don't
+      // know the proper way
       const sidebar_node = sidebar.add(e.target);
       sidebar_node.style("background-color", "rgb(100, 158, 226)");
 
       // I'm doing these two loops separately since I think the edges must refer
-      //   specifically to existing nodes, which don't exist until they are created
-      //   in the graph
+      // specifically to existing nodes, which don't exist until they are created
+      // in the graph
       for (var i = 0; i < nodes.length; i++) {
         sidebar.add(nodes[i]);
       }
       for (var i = 0; i < edges.length; i++) {
         // the original id names I gave to the edges have the form
-        //   "source connection-type-with-dashes target"
-        //   so these three lines create a "clean id" which is stripped
-        //   of the source and target names and replaces the dashes with
-        //   spaces.
+        // "source connection-type-with-dashes target"
+        // so these three lines create a "clean id" which is stripped
+        // of the source and target names and replaces the dashes with
+        // spaces.
         var clean_id = edges[i].id().split(" ")[1].split("-").join(" ");
         edges[i].data("clean_id", clean_id);
 
@@ -87,17 +87,17 @@ export function cytoInit(container, graph_props) {
       }
 
       // Change the layout to concentric. I want the clicked node to be the immediate
-      //   visual focus, so I figured I'd put it in the center of a circle of its
-      //   neighbours. For some unknown reason, just setting concentric does this
-      //   automatically. ¯\_(ツ)_/¯
+      // visual focus, so I figured I'd put it in the center of a circle of its
+      // neighbours. For some unknown reason, just setting concentric does this
+      // automatically. ¯\_(ツ)_/¯
       var layout = sidebar.layout({
         name: "concentric"
       });
       layout.run();
 
       // This section is going to generate a list of graphs that will display underneath
-      //   the sidebar graph, and will list off all the connections to and from the clicked
-      //   node
+      // the sidebar graph, and will list off all the connections to and from the clicked
+      // node
       var list_items = "";
       for (var i = 0; i < edges.length; i++) {
         list_items += "<div class='connection'></div>";
