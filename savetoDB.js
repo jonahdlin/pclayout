@@ -11,14 +11,7 @@ function runTest(){
     uri : 'test'
   }
   // Establish connection to the database
-  var connection = null;
-  r.connect({db: 'layouts', host: 'localhost', port: 28015}, function(err, conn){
-      if (err) throw err;
-      connection = conn;
-
-      // call what you need from here.
-      save(connection, fakeData);
-  });
+  save(fakeData,function(){console.log('I faked data');})
 }
 
 // Hack of a function to check if the credentials for admin access were correct
@@ -119,15 +112,41 @@ function writeLayout (connection,data, callback){
 }
 
 function cacheLayout(connection, callback){
+
   // this is a complete hack.
   r.db('layouts')
   .table('submissions')
   .orderBy(r.desc('date'))
   .limit(1)
-  .run(connection, function(err,result){
+  .run(connection, function(err,newVal){
     if (err) throw err;
-    callback();
-  })
+    r.db('layouts')
+    .table('cachedLayouts')
+    .filter({uriID: newVal[0].uriID})
+    .run(connection,function(err,cursor){
+      cursor.toArray(function(err,result){
+
+        if(result.length===0){
+          r.db('layouts')
+          .table('cachedLayouts')
+          .insert(newVal[0])
+          .run(connection,function(err,result){
+            if (err) throw err;
+            callback();
+          });
+        }else{
+          r.db('layouts')
+          .table('cachedLayouts')
+          .filter({uriID: newVal[0].uriID})
+          .update({date: newVal[0].date})
+          .run(connection, function(err,result){
+            if (err) throw err;
+            callback();
+          });
+        }
+      });
+    });
+  });
 }
 
 // Parse data received from the front end and update database accordingly

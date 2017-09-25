@@ -1,6 +1,7 @@
 // Get dependencies
 
 var accessDB = require('./saveToDB.js');
+var loadDB = require('./loadFromDB.js');
 var express = require('express');
 var app = express();
 var jwt = require('express-jwt');
@@ -31,7 +32,10 @@ app.use(function (req, res, next) {
 
 // Layout API 
 app.get('/retrieveLayout', function (req, res) {
-  res.json('GET request received.');
+  loadDB.load(req.query.uri, function(result){
+    res.json(result);
+  });
+  //res.json('GET request received.');
 });
 
 app.post('/sendLayout', function (req, res) {
