@@ -1,6 +1,7 @@
-var $ = require("jquery");
-var initcy = require("./initcy.js");
-var cy = require("cytoscape");
+const $ = require("jquery");
+const initcy = require("./initcy.js");
+const cy = require("cytoscape");
+const receive = require('./receive.js');
 
 var props = {
   graph_loaded: false,
@@ -119,14 +120,32 @@ function addIfNew(g, arr, name) {
   }
 }
 
+const test_layout = {
+  layout: '[{"id":"PRDM1","edges":[{"n1":"PRDM1","n2":"TP53","type":"controls-expression-of"},{"n1":"PRDM1","n2":"TP53","type":"in-complex-with"},{"n1":"PRDM1","n2":"TP53","type":"controls-expression-of"}],"pos":{"x":624.7999999999998,"y":30}},{"id":"TP53","edges":[{"n1":"TP53","n2":"PRDM1","type":"controls-expression-of"},{"n1":"TP53","n2":"PRDM1","type":"in-complex-with"},{"n1":"TP53","n2":"PRDM1","type":"controls-expression-of"}],"pos":{"x":624.8000000000001,"y":683.5999999999999}}]',
+  password: "admin",
+  uri: "http%3A%2F%2Fidentifiers.org%2Freactome%2FR-HSA-6804754",
+  username: "admin"
+}
+
 // Updates the layout on the graph g to whatever the current props dictate
-export function updateLayout(g, graph_props) {
+export function updateLayout(g, graph_props, uri) {
   var layout;
   if (graph_props.layout === "grid") {
     layout = g.layout({
       name: graph_props.layout,
       rows: graph_props.grid_rows
     });
+  } else if (graph_props.layout === "user") {
+    receive.getLayout(uri).then(
+      (result) => {
+        receive.parseAndRunLayout(result, g);
+      },
+      (jqXHR, exception) => {
+        l("Error receiving layout data");
+      }
+    );
+    //receive.parseAndRunLayout(test_layout, g);
+    return;
   } else {
     layout = g.layout({
       name: graph_props.layout
