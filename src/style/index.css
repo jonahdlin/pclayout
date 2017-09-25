@@ -317,14 +317,37 @@ Customization
   width: 100%;
   padding: 0.2em;
   padding-left: 0.7em;
+  padding-right: 0.7em;
   display: flex;
   align-items: center;
 }
 
-.layout_button {
-  width: 23%;
+.graph_button_label {
+  width: 20%;
+  padding-right: 0.7em;
+}
+
+.layout_buttons_container {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.layout_buttons_row {
+  width: 100%;
+  height: 48%;
   margin: 1%;
-  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.layout_button {
+  flex-grow: 1;
+  margin: 1%;
+  height: 98%;
   padding: 0.3em;
 
   border-radius: 3px;
@@ -332,18 +355,9 @@ Customization
   font-size: 0.8em;
 }
 
-.layout_button:nth-child(1) {background-color: #649EE2;}
-.layout_button:nth-child(1):hover {background-color: #4772A3;}
-.layout_button:nth-child(2) {background-color: #F75C03;}
-.layout_button:nth-child(2):hover {background-color: #A33900;}
-.layout_button:nth-child(3) {background-color: #F1C40F;}
-.layout_button:nth-child(3):hover {background-color: #AC8B0A;}
-.layout_button:nth-child(4) {background-color: #00CC66;}
-.layout_button:nth-child(4):hover {background-color: #007E3F;}
-.layout_button:nth-child(5) {background-color: #CB0CD1;}
-.layout_button:nth-child(5):hover {background-color: #9C09A1;}
-.layout_button:nth-child(6) {background-color: #53E0E0;}
-.layout_button:nth-child(6):hover {background-color: #41ADAD;}
+.user_layout_button {
+  flex-grow: 2;
+}
 
 .customization .colour {
   height: auto;
@@ -364,12 +378,13 @@ Customization
 
 .colour_label {
   padding-right: 0.7em;
+  width: 20%;
 }
 
 .colour_selector {
   padding: 0.5em;
   height: 75%;
-  width: 100%;
+  width: 80%;
   border-radius: 3px;
   cursor: pointer;
   border: none;

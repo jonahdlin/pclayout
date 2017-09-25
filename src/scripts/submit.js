@@ -6,7 +6,8 @@ function l(message) {console.log(message);}
 var sprops = {
   ip: "potato",
   port: "2001",
-  send_api: "/sendlayout"
+  send_api: "/sendlayout",
+  retrieve_api: "/retrievelayout"
 }
 
 /*
@@ -83,7 +84,7 @@ export function submitNewLayout(graph, graph_uri) {
     username: "admin",
     password: "admin"
   }
-
+  //l(layout_json);
   upload(layout_json);
 }
 
@@ -96,9 +97,9 @@ function upload(layout) {
     dataType: "json",
     timeout: 5000,
     success: (result) => {
-      l("-------------------------------------\nUpload successful. JSON uploaded is:");
-      l(result);
-      l("-------------------------------------");
+      // l("-------------------------------------\nUpload successful. Recieved message:");
+      // l(result);
+      // l("-------------------------------------");
     },
     error: (jqXHR, exception) => {
       l("Upload failure :(");

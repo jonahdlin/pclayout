@@ -37,4 +37,23 @@ export function customizeInit() {
       $(".customization_tab").css("border-left", "3px solid #303030");
     }
   });
+
+  const light_colors = ["#649EE2", "#F75C03", "#F1C40F", "#00CC66", "#CB0CD1", "#53E0E0", "#E64747"];
+  const dark_colors = ["#4772A3", "#A33900", "#AC8B0A", "#007E3F", "#9C09A1", "#41ADAD", "#C02B2B"];
+  //var layout_buttons = $(".layout_button");
+  $(".layout_button").each(function(i) {
+    $(this).css("background-color", light_colors[i])
+    $(this).mouseenter(function() {
+      $(this).css("background-color", dark_colors[i])
+    });
+    $(this).mouseleave(function() {
+      $(this).css("background-color", light_colors[i])
+    });
+  });
+  // for (var i = 0; i < layout_buttons.length; i++) {
+  //   layout_buttons[i].css("background-color", light_colors[i])
+  //   layout_buttons[i].hover(function() {
+  //     $(this).css("background-color", dark_colors[i])
+  //   });
+  // }
 }

@@ -29,9 +29,14 @@ class Page extends React.Component {
     this.state = {
       initial_uri: "http%3A%2F%2Fidentifiers.org%2Freactome%2FR-HSA-70171",
       current_uri: "http%3A%2F%2Fidentifiers.org%2Freactome%2FR-HSA-70171",
+      // initial_uri: "http%3A%2F%2Fidentifiers.org%2Freactome%2FR-HSA-6804754",
+      // current_uri: "http%3A%2F%2Fidentifiers.org%2Freactome%2FR-HSA-6804754",
       uri_displayed: null,
       node_displayed: null,
-      layout_options: ["Concentric", "Circle", "Grid", "Random", "Breadthfirst", "COSE"],
+      layout_options: [
+        "User", "Concentric", "Circle",
+        "Grid", "Breadthfirst", "COSE", "Random"
+      ],
       graph: {
         object: null,
         g_props: {
@@ -94,7 +99,7 @@ class Page extends React.Component {
       }
     });
     if (field === "layout") {
-      render.updateLayout(this.state.graph.object, new_props);
+      render.updateLayout(this.state.graph.object, new_props, this.state.current_uri);
     } else {
       render.reStyleGraph(this.state.graph.object, this.state.graph.g_props);
     }
@@ -244,11 +249,11 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const layout_buttons = this.props.layout_options.map((layoutName) => {
+    const layout_buttons = this.props.layout_options.map((layoutName, ind) => {
       return (
         <div
           key={layoutName}
-          className='layout_button linear_trans no_select center'
+          className={'layout_button linear_trans no_select center'+(ind ? '' : ' user_layout_button')}
           onClick={() => this.props.updateGraphProps("layout", layoutName.toLowerCase())}
         >{layoutName}</div>
       );
@@ -273,8 +278,15 @@ class Sidebar extends React.Component {
             <div className='connection_list'></div>
           </div>
           <div className='customization'>
-            <div className='layout'>Graph Layout
-              {layout_buttons}
+            <div className='layout'><span className='graph_button_label'>Graph Layout</span>
+              <div className='layout_buttons_container'>
+                <div className='layout_buttons_row'>
+                  {layout_buttons.slice(0,3)}
+                </div>
+                <div className='layout_buttons_row'>
+                  {layout_buttons.slice(3,8)}
+                </div>
+              </div>
             </div>
             <div className='colour'>
               <div className='colour_box'>
