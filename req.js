@@ -1,7 +1,6 @@
 // Get dependencies
 
-var accessDB = require('./saveToDB.js');
-var loadDB = require('./loadFromDB.js');
+var accessDB = require('./accessDB.js');
 var express = require('express');
 var app = express();
 var jwt = require('express-jwt');
@@ -32,16 +31,19 @@ app.use(function (req, res, next) {
 
 // Layout API 
 app.get('/retrieveLayout', function (req, res) {
-  loadDB.load(req.query.uri, function(result){
-    res.json(result);
-  });
+  if (req.query.uri === undefined){
+    res.json("No uri given");
+  }else {
+    accessDB.load(req.query.uri, function(result){
+      res.json(result);
+    });
+  }
   //res.json('GET request received.');
 });
 
 app.post('/sendLayout', function (req, res) {
-  console.log(req.body.uri);
-  accessDB.save(req.body, function(){
-    res.json('I did things?');
+  accessDB.save(req.body, function(result){
+    res.json(result);
   });
 });
 
